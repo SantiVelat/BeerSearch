@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es/ES">
+<head>
+	<meta charset="UTF-8">
+	<title>AJAX TEST SERVER</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<style>
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Beers search</h1>
+		<form>
+			<input id="beerName" type="text" name="beername" placeholder="Introduce the beer name">
+		</form>
+		<button class="btn btn-primary">Search</button>
+		<ul>
+		</ul>
+	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$('button').click(function(){			
+			var search=$('#beerName').val();
+			var result={};
+			var url = 'https://quiet-inlet-67115.herokuapp.com/api/search/all?q='+search+'>';
+			$.getJSON(url)
+			.done(function(data){			//recibimos los datos
+				data.forEach(function(data){
+					$('ul').append('<li value="' + data.id + '"><a href="#">'+data.name+'</a></li>')
+				})
+				$('li').click(function(){			
+					var url2 = 'https://quiet-inlet-67115.herokuapp.com/api/search/all?q='+search+'>';
+					$.getJSON(url2)
+					.done(function(data){			//recibimos los datos
+					data.forEach(function(data){
+					$('').append('<li value="' + data.id + '"><a href="#">'+data.name+'</a></li>')
+				})
+				})
+			})
+			.fail(function(){
+				console.log('error');
+			});	
+	})
+	$(document).submit(function(event){
+		event.preventDefault();
+	});
+
+	
+
+</script>
+</body>
+</html>
+
+<!---$('#title').text(data.data.items[0].title);
+		$('#thumbnail').html('<a href="'+data.data.items[0].player.default+'"><img src="'+data.data.items[0].thumbnail.default+'"></a>');-->
